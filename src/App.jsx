@@ -1,12 +1,20 @@
+import Player  from "./components/Player"
+import Sidebar from "./components/sidebar"
 
 
 function App() {
 
 
   return (
-    <>
-     <h2 className="text-5xl text-center text-blue-400"> Spotfy Clone</h2>
-    </>
+    <div className="h-screen bg-black ">
+  <div className="h-[90%] flex ">
+  <Sidebar/>
+</div>
+
+<Player/>
+
+ 
+    </div>
   )
 }
 
