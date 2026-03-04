@@ -9,6 +9,14 @@ const seekBg=useRef();
 const seekBar=useRef();
 
 
+
+
+
+
+
+
+
+
 const [track,setTrack]=useState(songsData[1]);
 const [playerStatus,setPlayerStatus]=useState(false);
 const [time,setTime]=useState({
@@ -28,42 +36,54 @@ function Play(){
 audioRef.current.play();
 setPlayerStatus(true);
 
+
 }
 
 function Pause(){
 audioRef.current.pause();
 setPlayerStatus(false);
+
+
 }
 
 async function playWithId(id){
 
 await setTrack(songsData[id]);
+
+
 await audioRef.current.play();
 setPlayerStatus(true);
+
+
 }
 
 async function Previous(){
 if(track.id>0){
     await setTrack(songsData[track.id-1]);
+}
     await audioRef.current.play();
     setPlayerStatus(true);
-}
+
+
+
 
 
 }
 
 async function Next(){
 if(track.id<songsData.length-1){
-    await setTrack(songsData[track.id+1]);
-    await audioRef.current.play();
-    setPlayerStatus(true);
+  await setTrack(songsData[track.id+1]);
+     
 }
+await audioRef.current.play();
+    setPlayerStatus(true);
 
 
 }
 
 async function SeekSong(e){
-audioRef.current.currentTime=((e.nativeEvent.offsetX/seekBg.current.offsetWidth)*audioRef.current.duration)
+
+ audioRef.current.currentTime=((e.nativeEvent.offsetX/seekBg.current.offsetWidth)*audioRef.current.duration)
 
 }
 
@@ -93,14 +113,17 @@ totalTime:{
 
 
 
+ 
+
+
 
 const contextvalue={
 audioRef,
 seekBar,
 seekBg,
-track,setTrack,
-playerStatus,setPlayerStatus,
-time,setTime,
+track,
+playerStatus,
+time,
 Play,
 Pause,
 playWithId,
