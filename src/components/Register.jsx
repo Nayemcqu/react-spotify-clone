@@ -1,6 +1,6 @@
 import {useRef,useState,useEffect} from "react"
 import { X,Check,Info} from "lucide-react"
-import { validateUserName,validatePassword } from "../utils/validation";
+import { validateUserName,validatePassword, validateEmail } from "../utils/validation";
 export default function Register(){
 
 const userRef=useRef();
@@ -10,6 +10,9 @@ const [user,setUser]=useState('');
 const [validName,setValidName]=useState(false);
 const [userFocus,setUserFocus]=useState(false);
 
+const [email,setEmail]=useState('');
+const [validEmail,setValidEmail]=useState(false);
+const [emailFocus,setEmailFocus]=useState(false);
 
 const [pwd,setPwd]=useState('');
 const [validPwd,setValidPwd]=useState(false);
@@ -41,10 +44,16 @@ const match=pwd===matchPwd;
 setValidMatch(match);
 
 },[pwd,matchPwd])
+
+useEffect(()=>{
+const isEmail=validateEmail(email);
+setValidEmail(isEmail);
+
+},[email])
    
 useEffect(()=>{
 setErrMsg('');
-},[user,pwd,matchPwd])
+},[user,pwd,matchPwd,email])
 
 function HandleSubmit(e){
 e.preventDefault();
@@ -64,6 +73,7 @@ return;
 const newUser={
    userName:user,
    password:pwd, 
+   email:email
 }
 
 storedUsers.push(newUser);
@@ -73,6 +83,7 @@ setSuccess(true);
 
 setUser("");
 setPwd("");
+setEmail('');
 setMatchPwd("");
 
 }
@@ -126,6 +137,28 @@ className="w-full mt-2 p-2 rounded bg-zinc-800 border border-zinc-700"
 4–24 characters. Must start with letter.
 </p>
 )}
+
+</div>
+
+{/*Email */}
+<div>
+
+<label className="flex items-center gap-2">
+Email
+{validEmail && <Check size={18} className="text-green-500"/>}
+{!validEmail && email && <X size={16} className="text-red-500"/> }
+</label>
+
+<input
+type="email"
+required
+onChange={(e)=>setEmail(e.target.value)}
+onFocus={()=>setEmailFocus(true)}
+onBlur={()=>setEmailFocus(false)}
+value={email}
+className="w-full p-2 mt-2 bg-zinc-800 border border-zinc-800"
+/>
+
 
 </div>
 

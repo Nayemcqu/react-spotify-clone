@@ -4,6 +4,23 @@ if(char.toUpperCase()!==char.toLowerCase()){
 }
 }
 
+export function validateEmail(email){
+
+    if(!email.includes("@")){
+    return false;
+  }
+const parts=email.split("@");
+
+if(parts[0].length===0){
+return false;
+}
+if(!parts[1].includes(".")){
+return false;
+}
+return true;
+
+}
+
 export function validateUserName(userName){
 
 if(userName.length <4 || userName.length>24){
